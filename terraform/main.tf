@@ -1,13 +1,16 @@
-module "s3_bucket" {
-  source = "terraform-aws-modules/s3-bucket/aws"
+module "ec2_instance" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
 
-  bucket = "my-s3-bucket-test-32123123123123"
-  acl    = "private"
+  name = "single-instance"
 
-  control_object_ownership = true
-  object_ownership         = "ObjectWriter"
+  instance_type          = "t2.micro"
+  key_name               = "user1"
+  monitoring             = true
+  vpc_security_group_ids = ["sg-12345678"]
+  subnet_id              = "subnet-eddcdzz4"
 
-  versioning = {
-    enabled = true
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
   }
 }
