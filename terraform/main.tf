@@ -1,13 +1,13 @@
-provider "aws" {
-  region = "ap-south-1"
-}
-resource "aws_s3_bucket" "example" {
-  bucket = "test-s3-bucket-67859991"
-  acl = "private"
-  versioning {
+module "s3_bucket" {
+  source = "terraform-aws-modules/s3-bucket/aws"
+
+  bucket = "my-s3-bucket-test-32123123123123"
+  acl    = "private"
+
+  control_object_ownership = true
+  object_ownership         = "ObjectWriter"
+
+  versioning = {
     enabled = true
-  }
-tags = {
-    Environment = "test"
   }
 }
