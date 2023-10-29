@@ -5,6 +5,18 @@ spec:
   labels:
     env: example
     team: product
+  eventWatcher:
+    - matcher:
+        name: helloworld-image-update
+        labels:
+          env: example
+          team: product
+      handler:
+        type: GIT_UPDATE
+        config:
+          replacements:
+            - file: deployment.yaml
+              yamlField: $.spec.template.spec.containers[0].image
   input:
     manifests:
       - deployment.yaml
